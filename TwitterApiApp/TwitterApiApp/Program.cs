@@ -1,8 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using TwitterApiApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Database connection
+builder.Services.AddDbContextPool<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("mydb"));
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
